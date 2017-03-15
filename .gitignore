@@ -1,0 +1,7 @@
+.idea/*
+vendor/*
+bin/*
+composer.*
+!composer.json
+!build/coverage-checker.php
+build/*
