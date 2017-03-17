@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+    mysql:
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        volumes:
+            - /var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: docker
+            MYSQL_PASSWORD: docker
+            MYSQL_DATABASE: docker
+
+    nginx:
+        image: nginx:1.10.2
+        ports:
+            - 80:80
+        restart: always
+        volumes:
+            - ./docker/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+            - ./:/var/www/html
+        links:
+            - php
+        depends_on:
+            - php
+
+    php:
+        build: docker/php
+        expose:
+            - 9000
+        restart: always
+        volumes:
+            - ./docker/php/conf/php.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./:/var/www/html
+        links:
+            - mysql
+        environment:
+            XDEBUG_CONFIG: remote_host=192.168.0.101

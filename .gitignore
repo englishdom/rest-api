@@ -5,3 +5,4 @@ composer.*
 !composer.json
 !build/coverage-checker.php
 build/*
+docker-compose.yml
