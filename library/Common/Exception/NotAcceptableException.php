@@ -2,7 +2,7 @@
 
 namespace Common\Exception;
 
-class NotAcceptableException extends \Exception implements ExceptionInterface
+class NotAcceptableException extends AbstractException implements ExceptionInterface
 {
 
 }

@@ -6,6 +6,7 @@ use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
+use Common\Middleware;
 
 /**
  * Setup middleware pipeline:
@@ -45,6 +46,7 @@ $app->pipe(UrlHelperMiddleware::class);
 // - route-based authentication
 // - route-based validation
 // - etc.
+$app->pipe(Middleware\VersionMiddleware::class);
 
 // Register the dispatch middleware in the middleware pipeline
 $app->pipeDispatchMiddleware();

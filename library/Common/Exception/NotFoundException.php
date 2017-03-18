@@ -1,6 +1,6 @@
 <?php
 namespace Common\Exception;
 
-class NotFoundException extends \Exception
+class NotFoundException extends AbstractException implements ExceptionInterface
 {
 }

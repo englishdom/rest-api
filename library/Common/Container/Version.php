@@ -2,10 +2,8 @@
 
 namespace Common\Container;
 
-class Version
+class Version implements VersionInterface
 {
-    const DEFAULT_VERSION = '1';
-
     private $version = self::DEFAULT_VERSION;
 
     /**

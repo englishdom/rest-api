@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Action;
+namespace Common\Middleware;
 
 use Common\Container\ConfigInterface;
 use Lcobucci\JWT\Signer\Hmac\Sha256;

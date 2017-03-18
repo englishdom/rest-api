@@ -2,6 +2,6 @@
 
 namespace Common\Exception;
 
-class UnauthorizedException extends \Exception
+class UnauthorizedException extends AbstractException implements ExceptionInterface
 {
 }

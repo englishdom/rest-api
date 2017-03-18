@@ -15,6 +15,8 @@ $aggregator = new ConfigAggregator([
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
+    Common\ConfigProvider::class,
+
     // Default App module config
     App\ConfigProvider::class,
 

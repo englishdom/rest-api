@@ -1,6 +1,6 @@
 <?php
 namespace Common\Exception;
 
-class RuntimeException extends \RuntimeException
+class RuntimeException extends AbstractException implements ExceptionInterface
 {
 }

@@ -2,7 +2,7 @@
 
 namespace Common\Exception;
 
-class UnsupportedMediaException extends \Exception implements ExceptionInterface
+class UnsupportedMediaException extends AbstractException implements ExceptionInterface
 {
 
 }

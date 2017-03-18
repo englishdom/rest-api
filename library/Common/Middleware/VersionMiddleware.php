@@ -1,38 +1,39 @@
 <?php
-namespace Common\Action;
+namespace Common\Middleware;
 
-use Common\Container\Version;
+use Common\Container\VersionInterface;
 use Common\Exception;
-use Psr\Http\Message\ResponseInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
 
-class VersionMiddleware
+class VersionMiddleware implements MiddlewareInterface
 {
     const APPLICATION_TYPE = 'application/vnd.api+json';
     const VERSION_EXPRESSION = 'v[0-9]{1,2}+';
 
     /**
-     * @var Version
+     * @var VersionInterface
      */
     private $version;
 
     /**
      * ApiVersionMiddleware constructor.
-     * @param Version $version
+     * @param VersionInterface $version
      */
-    public function __construct(Version $version)
+    public function __construct(VersionInterface $version)
     {
         $this->version = $version;
     }
 
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $this->checkContentTypeHeaderLine($request);
         $this->checkAcceptHeaderLine($request);
         $this->setVersion($request);
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 
     /**
