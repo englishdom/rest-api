@@ -10,24 +10,24 @@ use Zend\Log;
 
 class LoggingErrorListener
 {
-    private $loggingMode;
+    private $loggingExceptions;
     private $loggingPath;
 
     /**
      * LoggingErrorListener constructor.
-     * @param $loggingMode
-     * @param $loggingPath
+     * @param array $loggingExceptions
+     * @param string $loggingPath
      * @internal param LoggerInterface $logger
      */
-    public function __construct($loggingMode, $loggingPath)
+    public function __construct(array $loggingExceptions, string $loggingPath)
     {
-        $this->loggingMode = $loggingMode;
+        $this->loggingExceptions = $loggingExceptions;
         $this->loggingPath = $loggingPath;
     }
 
     public function __invoke(Throwable $error, ServerRequestInterface $request, ResponseInterface $response)
     {
-        if ($this->loggingMode) {
+        if (in_array(get_class($error), $this->loggingExceptions)) {
             $logger = $this->createLogger($error);
             $logger->err(
                 $error->getMessage(),

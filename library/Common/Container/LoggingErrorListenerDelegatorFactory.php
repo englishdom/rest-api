@@ -18,7 +18,7 @@ class LoggingErrorListenerDelegatorFactory
         $config = $container->get(ConfigInterface::class);
         $listener = new LoggingErrorListener(
             $config->get('logging', false),
-            $config->get('error-handler.logging-path', false)
+            $config->get('error-handler.logging-exceptions', [])
         );
         /* @var $repository ErrorHandler */
         $repository = $callback();
