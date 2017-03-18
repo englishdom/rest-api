@@ -15,11 +15,11 @@ class LoggingErrorListener
 
     /**
      * LoggingErrorListener constructor.
-     * @param array $loggingExceptions
      * @param string $loggingPath
+     * @param array $loggingExceptions
      * @internal param LoggerInterface $logger
      */
-    public function __construct(array $loggingExceptions, string $loggingPath)
+    public function __construct(string $loggingPath, array $loggingExceptions)
     {
         $this->loggingExceptions = $loggingExceptions;
         $this->loggingPath = $loggingPath;
