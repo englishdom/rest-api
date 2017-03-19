@@ -2,6 +2,9 @@ FROM php:7.1-fpm
 
 RUN apt-get update
 
+# Install env
+RUN apt-get install -y git
+
 # Some basic extensions
 RUN docker-php-ext-install -j$(nproc) json mbstring opcache pdo pdo_mysql
 
