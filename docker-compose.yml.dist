@@ -3,6 +3,7 @@ version: '2'
 services:
     mysql:
         image: mysql:5.7
+        container_name: rest-api-mysql
         ports:
             - 3306:3306
         volumes:
@@ -16,6 +17,7 @@ services:
 
     nginx:
         image: nginx:1.10.2
+        container_name: rest-api-nginx
         ports:
             - 80:80
         restart: always
@@ -29,6 +31,7 @@ services:
 
     php:
         build: docker/php
+        container_name: rest-api-php
         expose:
             - 9000
         restart: always
