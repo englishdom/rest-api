@@ -15,11 +15,10 @@ class ConfigProvider
     {
         return [
             'invokables' => [
-                Container\VersionInterface::class => Container\Version::class,
+                Middleware\PrepareResponseMiddleware::class => Middleware\PrepareResponseMiddleware::class,
             ],
             'factories'  => [
                 Container\ConfigInterface::class => Container\ConfigFactory::class,
-                Middleware\VersionMiddleware::class => Middleware\VersionMiddlewareFactory::class,
             ],
         ];
     }
