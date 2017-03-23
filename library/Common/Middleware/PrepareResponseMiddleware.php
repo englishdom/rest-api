@@ -3,6 +3,7 @@
 namespace Common\Middleware;
 
 use Common\Action\ActionInterface;
+use Common\Container\ConfigInterface;
 use Common\Exception\RuntimeException;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
@@ -17,10 +18,24 @@ use Zend\Diactoros\Stream;
 
 class PrepareResponseMiddleware implements MiddlewareInterface
 {
+    /**
+     * @var ConfigInterface
+     */
+    private $config;
+
+    /**
+     * PrepareResponseMiddleware constructor.
+     * @param ConfigInterface $config
+     */
+    public function __construct(ConfigInterface $config)
+    {
+        $this->config = $config;
+    }
+
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         /* Get HTTP code */
-        $httpCode = $meta = $request->getAttribute(ActionInterface::HTTP_CODE);
+        $httpCode = $request->getAttribute(ActionInterface::HTTP_CODE);
         if (!$httpCode) {
             $httpCode = HttpResponse::STATUS_CODE_200;
         }
@@ -32,8 +47,6 @@ class PrepareResponseMiddleware implements MiddlewareInterface
             throw new RuntimeException('Unsupported type');
         }
 
-        $fractal->setResourceKey('blabla');
-
         /* Set META info */
         $meta = $request->getAttribute(ActionInterface::META);
         if (!empty($meta) && is_array($meta)) {
@@ -41,7 +54,7 @@ class PrepareResponseMiddleware implements MiddlewareInterface
         }
 
         $fractalManager = new Manager();
-        $fractalManager->setSerializer(new JsonApiSerializer('api'));
+        $fractalManager->setSerializer(new JsonApiSerializer($this->config->get('host') . 'api'));
         $jsonData = $fractalManager->createData($fractal)->toJson();
 
         $stream = new Stream('php://memory', 'w');

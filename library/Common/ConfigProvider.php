@@ -14,11 +14,9 @@ class ConfigProvider
     public function getDependencies()
     {
         return [
-            'invokables' => [
-                Middleware\PrepareResponseMiddleware::class => Middleware\PrepareResponseMiddleware::class,
-            ],
             'factories'  => [
-                Container\ConfigInterface::class => Container\ConfigFactory::class,
+                Container\ConfigInterface::class => Factory\ConfigFactory::class,
+                Middleware\PrepareResponseMiddleware::class => Factory\PrepareResponseMiddlewareFactory::class,
             ],
         ];
     }

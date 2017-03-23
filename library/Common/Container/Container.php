@@ -73,4 +73,9 @@ final class Container implements ContainerInterface
     {
         return array_key_exists($id, $this->container);
     }
+
+    public function toArray()
+    {
+        return $this->container;
+    }
 }

@@ -7,6 +7,7 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use League\Fractal\Resource\Item;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use User\Entity\User;
 use User\Transformer\UserTransformer;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Select;
@@ -14,6 +15,8 @@ use Zend\Http\Response;
 
 class RegistrationAction implements ActionInterface
 {
+    const RESOURCE_NAME = 'user';
+
     /**
      * @var Adapter
      */
@@ -37,14 +40,24 @@ class RegistrationAction implements ActionInterface
 //        $sql = $select->getSqlString($this->adapter->getPlatform());
 //        $rows = $this->adapter->query($sql, Adapter::QUERY_MODE_EXECUTE);
 
-        $user = [
-            'id' => 1,
-            'name' => 'Test',
-        ];
+        $user = (new User())
+            ->setId(1)
+            ->setName('Test');
 
-        $request = $request->withAttribute(self::RESPONSE, new Item($user, new UserTransformer()))
+        $item = new Item($user, new UserTransformer(), $this->getResourceName());
+
+        $request = $request
+            ->withAttribute(self::RESPONSE, $item)
             ->withAttribute(self::HTTP_CODE, Response::STATUS_CODE_201);
 
         return $delegate->process($request);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getResourceName(): string
+    {
+        return self::RESOURCE_NAME;
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace Common\Container;
+namespace Common\Factory;
 
+use Common\Container\Config;
 use Interop\Container\ContainerInterface;
 
 class ConfigFactory

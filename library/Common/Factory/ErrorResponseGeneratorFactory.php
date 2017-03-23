@@ -1,7 +1,8 @@
 <?php
 
-namespace Common\Container;
+namespace Common\Factory;
 
+use Common\Container\ConfigInterface;
 use Common\Middleware\ErrorResponseGenerator;
 use Interop\Container\ContainerInterface;
 

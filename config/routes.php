@@ -30,3 +30,4 @@
 $app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 $app->post('/api/{version}/user/registration', User\Action\RegistrationAction::class, 'api.user.registration');
+$app->post('/api/{version}/user/authentication', User\Action\AuthenticationAction::class, 'api.user.auth');

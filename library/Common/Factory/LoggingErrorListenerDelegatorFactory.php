@@ -1,7 +1,9 @@
 <?php
 
-namespace Common\Container;
+namespace Common\Factory;
 
+use Common\Container\ConfigInterface;
+use Common\Container\LoggingErrorListener;
 use Interop\Container\ContainerInterface;
 use Zend\Stratigility\Middleware\ErrorHandler;
 

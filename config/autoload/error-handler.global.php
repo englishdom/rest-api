@@ -2,18 +2,18 @@
 
 use Zend\Http;
 use Common\Exception;
-use Common\Container;
+use Common\Factory;
 use Zend\Expressive\Middleware\ErrorResponseGenerator;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
 return [
     'dependencies' => [
         'factories'  => [
-            ErrorResponseGenerator::class => Container\ErrorResponseGeneratorFactory::class,
+            ErrorResponseGenerator::class => Factory\ErrorResponseGeneratorFactory::class,
         ],
         'delegators' => [
             ErrorHandler::class => [
-                Container\LoggingErrorListenerDelegatorFactory::class,
+                Factory\LoggingErrorListenerDelegatorFactory::class,
             ]
         ]
     ],
