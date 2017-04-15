@@ -6,3 +6,4 @@ composer.*
 !build/coverage-checker.php
 build/*
 docker-compose.yml
+.env
